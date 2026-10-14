@@ -112,3 +112,43 @@ class Villano(Personaje):
             "ausencias",
             "hablador",
         )
+
+
+
+class Miembro():
+    def __init__(self, id:int, nombre:str, apellido1:str, apellido2:str):
+        self.id = id
+        self.nombre = nombre
+        self.apellido1 = apellido1
+        self.apellido2 = apellido2
+
+    def getIdentif(self):
+        return self.id
+
+    def getNombre(self):
+        return self.nombre
+
+    def getApellidos(self):
+        return f"{self.apellido1} {self.apellido2}"
+
+
+class Jugador(Miembro):
+    def __init__(self, id:int, nombre:str, apellido1:str, apellido2:str, posicion:str):
+        self.id = id
+        self.nombre = nombre
+        self.apellido1 = apellido1
+        self.apellido2 = apellido2
+        self.posicion = posicion
+
+    def getPosicion(self):
+        return self.posicion
+
+class CuerpoTecnico(Miembro):
+    def __init__(self, id:int, nombre:str, apellido1:str, apellido2:str, rol:str):
+        self.id = id
+        self.nombre = nombre
+        self.apellido1 = apellido1
+        self.apellido2 = apellido2
+        self.rol = rol
+    def getRol(self):
+        return self.rol
