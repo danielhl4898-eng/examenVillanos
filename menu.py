@@ -99,7 +99,7 @@ class Menu:
                                     rol = input("¿Cuál es su rol?")
                                     plantilla[identificador] = CuerpoTecnico(identificador, nombre, apellido1, apellido2,rol)
                             elif decision == 2:
-                                pass
+                                self.mostrarPlantilla(plantilla)
                             elif decision == 3:
                                 pass
                             elif decision == 4:
@@ -193,4 +193,21 @@ class Menu:
 
         with open(f"sentencias/miembro0{miembro.getIdentif()}.sql", "w") as f:
             f.write(sentencia)
+
+
+    def mostrarPlantilla(self, plantilla):
+        if plantilla is None:
+            print("===========================================")
+            print("No hay plantillas para mostrar.")
+            print("===========================================")
+        else:
+            print("=============PLANTILLA DE FÚTBOL===============")
+            for i in plantilla:
+                print(f"ID: {i.getIdentif()}\n"
+                      f"Tipo: {i.getTipo()}\n"
+                      f"Nombre: {i.getNombre()}\n"
+                      f"Apellidos: {i.getApellidos()}\n"
+                      f"Posicion: {i.getPosicion()}\n"
+                      f"--------------------------------------------")
+
 

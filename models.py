@@ -142,6 +142,8 @@ class Jugador(Miembro):
 
     def getPosicion(self):
         return self.posicion
+    def getTipo(self):
+        return self.__class__.__name__
 
 class CuerpoTecnico(Miembro):
     def __init__(self, id:int, nombre:str, apellido1:str, apellido2:str, rol:str):
@@ -152,3 +154,5 @@ class CuerpoTecnico(Miembro):
         self.rol = rol
     def getRol(self):
         return self.rol
+    def getTipo(self):
+        return self.__class__.__name__
