@@ -2,6 +2,9 @@
 
 import logging
 from gestion import Gestion
+from models import Jugador
+from models import CuerpoTecnico
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +36,6 @@ class Menu:
                         print("5. Emparejar héroe y villano")
                         print("6. Eliminar personaje")
                         print("0. Salir")
-
                         try:
                             opcion = input("Elige una opción: ").strip()
                             if opcion == "1":
@@ -79,8 +81,23 @@ class Menu:
                               )
                         try:
                             decision = int(input())
+                            plantilla = {}
                             if decision == 1:
-                                pass
+                                print("¿Qué tipo de miembro quieres agregar?\n"
+                                      "1. Jugador\n"
+                                      "2. Cuerpo técnico\n")
+                                eleccion = input()
+                                identificador = int(input("Dime el identificador:"))
+                                nombre = input("Dime el nombre:")
+                                apellido1 = input("Dime el primer apellido:")
+                                apellido2 = input("Dime el segundo apellido:")
+                                if eleccion == "1":
+                                    posicion = input("¿Cuál es su posición?")
+                                    plantilla[identificador] = Jugador(identificador, nombre, apellido1, apellido2, posicion)
+                                    self.guardarSentenciaJugador(plantilla[identificador])
+                                elif eleccion == "2":
+                                    rol = input("¿Cuál es su rol?")
+                                    plantilla[identificador] = CuerpoTecnico(identificador, nombre, apellido1, apellido2,rol)
                             elif decision == 2:
                                 pass
                             elif decision == 3:
@@ -101,6 +118,10 @@ class Menu:
                         except Exception:
                             logger.exception("Error no controlado en el menú.")
                             print("Se ha producido un error. Consulta el archivo aplicacion.log.")
+                elif decisionMenu == 3:
+                    logger.info("Aplicación cerrada por el usuario.")
+                    print("Hasta luego.")
+                    break
             except (ValueError, TypeError) as exc:
                 print(f"Error: {exc}")
                 logger.warning("Entrada no válida: %s", exc)
@@ -157,3 +178,19 @@ class Menu:
             print("Personaje eliminado.")
         else:
             print("No existe un personaje con ese identificador.")
+
+
+    def guardarSentenciaJugador(self, jugador):
+        os.makedirs(f"sentencias/", exist_ok=True)
+        sentencia = (f"INSERT INTO jugador (id, nombre, apellidos, posicion) VALUES ({jugador.getIdentif()},{jugador.getNombre()},{jugador.getApellidos()}, {jugador.getPosicion()});")
+
+        with open(f"sentencias/jugador0{jugador.getIdentif()}.sql", "w") as f:
+            f.write(sentencia)
+
+    def guardarSentenciaMiembro(self, miembro):
+        os.makedirs(f"sentencias/", exist_ok=True)
+        sentencia = (f"INSERT INTO miembro (id, nombre, apellidos, rol) VALUES ({miembro.getIdentif()},{miembro.getNombre()},{miembro.getApellidos()}, {miembro.getRol()});")
+
+        with open(f"sentencias/miembro0{miembro.getIdentif()}.sql", "w") as f:
+            f.write(sentencia)
+

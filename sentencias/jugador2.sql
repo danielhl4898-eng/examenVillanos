@@ -1,0 +1,1 @@
+INSERT INTO jugador (id, nombre, apellidos, posicion) VALUES (2,Daniel,Hergueta Losa, Delantero)
